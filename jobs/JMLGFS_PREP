@@ -1,0 +1,68 @@
+#!/bin/bash
+set -x
+
+# Prepend time to output
+export PS4=' $SECONDS + '
+
+# Create temporary working directory
+export DATA=${DATA:-${DATAROOT:?}/${jobid:?}}
+mkdir -p $DATA
+cd $DATA
+
+# Create directories to store gfs inputs and final output
+mkdir -p data output
+
+export cycle=${cycle:-t${cyc}z}
+setpdy.sh
+. ${DATA}/PDY
+echo $PDY
+
+export curr_PDYHH=${PDY}${cyc}
+export prev_PDYHH=$($NDATE -6 $curr_PDYHH)
+echo "Current state: $curr_PDYHH"
+echo "6 hours earlier state: $prev_PDYHH"
+export prev_PDY=${prev_PDYHH:0:8} # first 8 characters
+export prev_cyc=${prev_PDYHH: -2} # last 2 characters
+echo 'prev_PDY' $prev_PDY
+echo 'prev_cyc' $prev_cyc
+
+# Set up parent directory and all sub-directories for current model
+#export HOMEgfs_gc=${HOMEgfs_gc:-${PACKAGEROOT:?}}
+export FIXmlgfs=${HOMEmlgfs}/fix
+export USHmlgfs=${HOMEmlgfs}/ush
+
+export MAILTO=${MAILTO:-'nco.spa@noaa.gov'}
+
+# Variables used in com directory organization
+export NET=${NET:-mlgfs}
+export RUN=${RUN:-mlgfs}
+
+# Locations of incoming data
+export COMINgfs=${COMINgfs:-$(compath.py ${envir}/gfs/${gfs_ver})}/gfs.$PDY/$cyc/atmos
+export COMINgfsm1=${COMINgfsm1:-$(compath.py  ${envir}/gfs/${gfs_ver})}/gfs.$prev_PDY/$prev_cyc/atmos
+
+# Locations of outgoing data
+export COMOUT=${COMOUT:-$(compath.py -o $NET/$mlgfs_ver/$RUN.$PDY)}/${cyc}
+
+# Create output directories
+mkdir -p $COMOUT
+
+# Execute ex-script
+$HOMEmlgfs/scripts/exmlgfs_prep.sh
+export err=$?; err_chk
+
+# Post successful completion message
+msg="JOB $job HAS COMPLETED NORMALLY."
+postmsg $jlogfile "$msg"
+
+# Print exec output
+if [ -e $pgmout ]; then
+  cat $pgmout
+fi
+
+# Remove temporary working directory
+if [ "${KEEPDATA^^}" != YES ]; then
+  rm -rf $DATA
+fi
+
+date
