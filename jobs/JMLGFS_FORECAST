@@ -1,0 +1,55 @@
+#!/bin/bash
+set -x
+
+# Prepend time to output
+export PS4=' $SECONDS + '
+
+# Create temporary working directory
+export DATA=${DATA:-${DATAROOT:?}/${jobid:?}}
+mkdir -p $DATA
+cd $DATA
+
+export cycle=${cycle:-t${cyc}z}
+setpdy.sh
+. ${DATA}/PDY
+echo $PDY
+
+export curr_PDYHH=${PDY}${cyc}
+# Set up parent directory and all sub-directories for current model
+export FIXmlgfs=${HOMEmlgfs}/fix
+export USHmlgfs=${HOMEmlgfs}/ush
+
+export MAILTO=${MAILTO:-'nco.spa@noaa.gov'}
+
+# Variables used in com directory organization
+export NET=${NET:-mlgfs}
+export RUN=${RUN:-mlgfs}
+
+# Locations of incoming data
+export COMIN=${COMIN:-$(compath.py ${envir}/$NET/$mlgfs_ver)}/$RUN.$PDY/$cyc
+
+# Locations of outgoing data
+export COMOUT=${COMOUT:-$(compath.py -o $NET/$mlgfs_ver/$RUN.$PDY)}/${cyc}
+
+# Create output directories
+mkdir -p $COMOUT
+
+# Execute ex-script
+$HOMEmlgfs/scripts/exmlgfs_forecast.sh
+export err=$?; err_chk
+
+# Post successful completion message
+msg="JOB $job HAS COMPLETED NORMALLY."
+postmsg $jlogfile "$msg"
+
+# Print exec output
+if [ -e $pgmout ]; then
+  cat $pgmout
+fi
+
+# Remove temporary working directory
+if [ "${KEEPDATA^^}" != YES ]; then
+  rm -rf $DATA
+fi
+
+date
