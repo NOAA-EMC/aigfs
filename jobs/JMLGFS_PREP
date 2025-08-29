@@ -18,13 +18,19 @@ setpdy.sh
 echo $PDY
 
 export curr_PDYHH=${PDY}${cyc}
-export prev_PDYHH=$($NDATE -6 $curr_PDYHH)
+export m1_PDYHH=$($NDATE -6 $curr_PDYHH)
+export m2_PDYHH=$($NDATE -12 $curr_PDYHH)
 echo "Current state: $curr_PDYHH"
-echo "6 hours earlier state: $prev_PDYHH"
-export prev_PDY=${prev_PDYHH:0:8} # first 8 characters
-export prev_cyc=${prev_PDYHH: -2} # last 2 characters
-echo 'prev_PDY' $prev_PDY
-echo 'prev_cyc' $prev_cyc
+echo "6 hours earlier state: $m1_PDYHH"
+echo "12 hours earlier state: $m2_PDYHH"
+export m1_PDY=${m1_PDYHH:0:8} # first 8 characters
+export m1_cyc=${m1_PDYHH: -2} # last 2 characters
+echo "m1_PDY $m1_PDY"
+echo "m1_cyc $m1_cyc"
+export m2_PDY=${m2_PDYHH:0:8}
+export m2_cyc=${m2_PDYHH: -2}
+echo "m2_PDY $m2_PDY"
+echo "m2_cyc $m2_cyc"
 
 # Set up parent directory and all sub-directories for current model
 #export HOMEgfs_gc=${HOMEgfs_gc:-${PACKAGEROOT:?}}
@@ -39,7 +45,8 @@ export RUN=${RUN:-mlgfs}
 
 # Locations of incoming data
 export COMINgfs=${COMINgfs:-$(compath.py ${envir}/gfs/${gfs_ver})}/gfs.$PDY/$cyc/atmos
-export COMINgfsm1=${COMINgfsm1:-$(compath.py  ${envir}/gfs/${gfs_ver})}/gfs.$prev_PDY/$prev_cyc/atmos
+export COMINgfsm1=${COMINgfsm1:-$(compath.py  ${envir}/gfs/${gfs_ver})}/gfs.$m1_PDY/$m1_cyc/atmos
+export COMINgfsm2=${COMINGgfsm2:-$(compath.py ${envir}/gfs/${gfs_ver})}/gfs.$m2_PDY/$m2_cyc/atmos
 
 # Locations of outgoing data
 export COMOUT=${COMOUT:-$(compath.py -o $NET/$mlgfs_ver/$RUN.$PDY)}/${cyc}
