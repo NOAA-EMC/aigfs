@@ -4,8 +4,6 @@ set -eux
 
 readonly HOMEmlgfs=$(cd $(dirname $(readlink -f -n "${BASH_SOURCE[0]}"))/.. && pwd -P)
 
-venv_req="${HOMEmlgfs}/sorc/requirements.txt"
-
 set +x
 # TODO: Make this work for non-WCOSS platforms
 module reset
@@ -35,5 +33,10 @@ mkdir -p "${TMPDIR}"
 # Start creating the venv
 python3 -m virtualenv "${venv_dir}"
 source "${venv_dir}/bin/activate"
-pip install -r "${venv_req}"
+
+# Prepare the venv requirements.txt file and save it in venv
+rm -f "${venv_dir}/requirements.txt"
+sed "s|{{ HOMEmlgfs }}|${HOMEmlgfs}|g" "${HOMEmlgfs}/sorc/requirements.txt.j2" > "${venv_dir}/requirements.txt"
+
+pip install -r "${venv_dir}/requirements.txt"
 pip list

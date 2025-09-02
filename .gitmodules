@@ -1,3 +1,4 @@
 [submodule "graphcast"]
 	path = sorc/graphcast
 	url = https://github.com/google-deepmind/graphcast
+	ignore = dirty
