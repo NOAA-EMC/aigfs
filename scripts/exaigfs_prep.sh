@@ -27,9 +27,9 @@ cpreq $COMINgfs/gfs.t${cyc}z.pgrb2.0p25.f000 $DATA/data/
 ls -l $DATA/data/
 
 # run gfs_utility script to create graphcast input
-$USHmlgfs/gen_mlgfs_ics.py "$m2_PDYHH" "$curr_PDYHH" -o output
+$USHaigfs/gen_aigfs_ics.py "$m2_PDYHH" "$curr_PDYHH" -o output
 export err=$?; err_chk
 
-cpfs output/mlgfs_t${cyc}z_ic.nc $COMOUT
+cpfs output/mlgfs.t${cyc}z.ic.nc $COMOUT/aigfs.t${cyc}z.ic.nc
 
 echo "$0 completed normally"
