@@ -16,26 +16,26 @@ echo $PDY
 
 export curr_PDYHH=${PDY}${cyc}
 # Set up parent directory and all sub-directories for current model
-export FIXmlgfs=${HOMEmlgfs}/fix
-export USHmlgfs=${HOMEmlgfs}/ush
+export FIXaigfs=${HOMEaigfs}/fix
+export USHaigfs=${HOMEaigfs}/ush
 
 export MAILTO=${MAILTO:-'nco.spa@noaa.gov'}
 
 # Variables used in com directory organization
-export NET=${NET:-mlgfs}
-export RUN=${RUN:-mlgfs}
+export NET=${NET:-aigfs}
+export RUN=${RUN:-aigfs}
 
 # Locations of incoming data
-export COMIN=${COMIN:-$(compath.py ${envir}/$NET/$mlgfs_ver)}/$RUN.$PDY/$cyc
+export COMIN=${COMIN:-$(compath.py ${envir}/$NET/$aigfs_ver)}/$RUN.$PDY/$cyc
 
 # Locations of outgoing data
-export COMOUT=${COMOUT:-$(compath.py -o $NET/$mlgfs_ver/$RUN.$PDY)}/${cyc}
+export COMOUT=${COMOUT:-$(compath.py -o $NET/$aigfs_ver/$RUN.$PDY)}/${cyc}
 
 # Create output directories
 mkdir -p $COMOUT
 
 # Execute ex-script
-$HOMEmlgfs/scripts/exmlgfs_forecast.sh
+$HOMEaigfs/scripts/exaigfs_forecast.sh
 export err=$?; err_chk
 
 # Post successful completion message
