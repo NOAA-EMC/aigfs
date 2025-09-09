@@ -30,6 +30,6 @@ ls -l $DATA/data/
 $USHaigfs/gen_aigfs_ics.py "$m2_PDYHH" "$curr_PDYHH" -o output
 export err=$?; err_chk
 
-cpfs output/mlgfs.t${cyc}z.ic.nc $COMOUT/aigfs.t${cyc}z.ic.nc
+cpfs output/aigfs.t${cyc}z.ic.nc $COMOUT
 
 echo "$0 completed normally"
