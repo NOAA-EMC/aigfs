@@ -205,3 +205,14 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Editor backup files (Emacs, vim)
+*~
+*.sw[a-p]
+.DS_Store
+
+# Pycharm IDE files
+.idea/
+
+# VSCode files
+*vscode*

@@ -1,0 +1,4 @@
+[submodule "graphcast"]
+	path = sorc/graphcast
+	url = https://github.com/noaa-emc/graphcast
+	ignore = dirty
