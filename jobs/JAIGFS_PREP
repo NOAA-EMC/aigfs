@@ -33,7 +33,6 @@ echo "m2_PDY $m2_PDY"
 echo "m2_cyc $m2_cyc"
 
 # Set up parent directory and all sub-directories for current model
-#export HOMEgfs_gc=${HOMEgfs_gc:-${PACKAGEROOT:?}}
 export FIXaigfs=${HOMEaigfs}/fix
 export USHaigfs=${HOMEaigfs}/ush
 
@@ -49,7 +48,7 @@ export COMINgfsm1=${COMINgfsm1:-$(compath.py  ${envir}/gfs/${gfs_ver})}/gfs.$m1_
 export COMINgfsm2=${COMINGgfsm2:-$(compath.py ${envir}/gfs/${gfs_ver})}/gfs.$m2_PDY/$m2_cyc/atmos
 
 # Locations of outgoing data
-export COMOUT=${COMOUT:-$(compath.py -o $NET/$aigfs_ver/$RUN.$PDY)}/${cyc}
+export COMOUT=${COMOUT:-$(compath.py -o $NET/$aigfs_ver/$RUN.$PDY)}/${cyc}/model/atmos/init
 
 # Create output directories
 mkdir -p $COMOUT
