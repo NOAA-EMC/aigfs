@@ -19,15 +19,7 @@ setpdy.sh
 . ${DATA}/PDY
 echo $PDY
 
-export curr_PDYHH=${PDY}${cyc}
-# Set up parent directory and all sub-directories for current model
-export FIXaigfs=${HOMEaigfs}/fix
-export USHaigfs=${HOMEaigfs}/ush
-
 export MAILTO=${MAILTO:-'nco.spa@noaa.gov'}
-
-# Locations of incoming data
-export COMIN=${COMIN:-$(compath.py ${envir}/$NET/$aigfs_ver)}/$RUN.$PDY/$cyc/model/atmos/init
 
 # Locations of outgoing data
 export COMOUT=${COMOUT:-$(compath.py -o $NET/$aigfs_ver/$RUN.$PDY)}/${cyc}/model/atmos/grib2
@@ -36,7 +28,7 @@ export COMOUT=${COMOUT:-$(compath.py -o $NET/$aigfs_ver/$RUN.$PDY)}/${cyc}/model
 mkdir -p $COMOUT
 
 # Execute ex-script
-$HOMEaigfs/scripts/exaigfs_forecast.sh
+$HOMEaigfs/scripts/exaigfs_post.sh
 export err=$?; err_chk
 
 # Post successful completion message
