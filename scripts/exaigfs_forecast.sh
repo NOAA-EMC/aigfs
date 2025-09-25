@@ -3,8 +3,6 @@ set -x
 
 echo "Starting $0"
 
-cp ${USHaigfs}/set_event.sh ${DATA}
-
 mkdir -p ${DATA}/data
 mkdir -p ${DATAshared}/output
 
