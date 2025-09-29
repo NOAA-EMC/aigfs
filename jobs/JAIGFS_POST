@@ -9,7 +9,7 @@ export NET=${NET:-aigfs}
 export RUN=${RUN:-aigfs}
 
 # Create temporary working directory
-export DATAshared=${DATAROOT:?}/${RUN}_forecast_${cyc}_${aigfs_ver%.*}
+export DATAshared=${DATAROOT:?}/${RUN}_forecast_${cyc}_${aigfs_ver%.*}_${envir}
 export DATA=${DATAshared}/${jobid:?}
 mkdir -p $DATA
 cd $DATA
