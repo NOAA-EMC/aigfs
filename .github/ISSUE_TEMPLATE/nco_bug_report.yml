@@ -56,8 +56,6 @@ body:
     attributes:
       label: Additional information
       description: Provide context or any additional information about the bug.
-    validations:
-      required: true
 
   - type: textarea
     id: proposed_implementation
