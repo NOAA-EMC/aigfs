@@ -43,7 +43,6 @@ export NET=${NET:-aigfs}
 export RUN=${RUN:-aigfs}
 
 # Locations of incoming data
-# gfs.${PDY}/${cyc}/products/atmos/grib2/0p25
 export COMINgfs=${COMINgfs:-$(compath.py ${envir}/gfs/${gfs_ver})}/gfs.$PDY/$cyc/products/atmos/grib2/0p25
 export COMINgfsm1=${COMINgfsm1:-$(compath.py  ${envir}/gfs/${gfs_ver})}/gfs.$m1_PDY/$m1_cyc/products/atmos/grib2/0p25
 export COMINgfsm2=${COMINGgfsm2:-$(compath.py ${envir}/gfs/${gfs_ver})}/gfs.$m2_PDY/$m2_cyc/products/atmos/grib2/0p25

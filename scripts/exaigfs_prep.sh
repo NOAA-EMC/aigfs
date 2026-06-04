@@ -4,7 +4,6 @@ set -x
 echo "Starting $0"
 
 # Wait for up to 15 minutes to find the latest GFS 6-h forecast
-# gfs.t${cyc}z.pres_a.0p25.${fh}.grib2
 target=$COMINgfs/gfs.t${cyc}z.pres_a.0p25.f000.grib2
 n_tries=30
 for counter in $( seq 1 1 $n_tries ); do
@@ -21,7 +20,6 @@ for counter in $( seq 1 1 $n_tries ); do
 done
 
 # copy data in
-# gfs.t${cyc}z.pres_a.0p25.${fh}.grib2
 cpreq $COMINgfsm2/gfs.t${m2_cyc}z.pres_a.0p25.f006 $DATA/data/
 cpreq $COMINgfsm1/gfs.t${m1_cyc}z.pres_a.0p25.f000 $DATA/data/
 cpreq $COMINgfsm1/gfs.t${m1_cyc}z.pres_a.0p25.f006 $DATA/data/
