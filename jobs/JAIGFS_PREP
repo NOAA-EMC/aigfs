@@ -43,9 +43,10 @@ export NET=${NET:-aigfs}
 export RUN=${RUN:-aigfs}
 
 # Locations of incoming data
-export COMINgfs=${COMINgfs:-$(compath.py ${envir}/gfs/${gfs_ver})}/gfs.$PDY/$cyc/atmos
-export COMINgfsm1=${COMINgfsm1:-$(compath.py  ${envir}/gfs/${gfs_ver})}/gfs.$m1_PDY/$m1_cyc/atmos
-export COMINgfsm2=${COMINGgfsm2:-$(compath.py ${envir}/gfs/${gfs_ver})}/gfs.$m2_PDY/$m2_cyc/atmos
+# gfs.${PDY}/${cyc}/products/atmos/grib2/0p25
+export COMINgfs=${COMINgfs:-$(compath.py ${envir}/gfs/${gfs_ver})}/gfs.$PDY/$cyc/products/atmos/grib2/0p25
+export COMINgfsm1=${COMINgfsm1:-$(compath.py  ${envir}/gfs/${gfs_ver})}/gfs.$m1_PDY/$m1_cyc/products/atmos/grib2/0p25
+export COMINgfsm2=${COMINGgfsm2:-$(compath.py ${envir}/gfs/${gfs_ver})}/gfs.$m2_PDY/$m2_cyc/products/atmos/grib2/0p25
 
 # Locations of outgoing data
 export COMOUT=${COMOUT:-$(compath.py -o $NET/$aigfs_ver/$RUN.$PDY)}/${cyc}/model/atmos/init
